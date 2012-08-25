@@ -26,7 +26,7 @@ class Game(pyglet.window.Window):
     self.map = Map()
     self.pathfinding = AStar(self.map)
 
-    self.pathfinding.calcShortest(self.map.tiles[5], self.map.tiles[24])
+    self.pathfinding.calcShortest(self.map.tiles[5], self.map.tiles[12])
 
   def on_draw(self):
     self.map.draw() 
@@ -74,8 +74,6 @@ class Map():
       
     return adj
 
-  def print_tile(self, tile):
-    print 'X: {0}, y: {1}, g_x: {2}, g_y: {3}'.format(tile.x, tile.y, tile.grid_x, tile.grid_y)
 
 class Tile(pyglet.sprite.Sprite):  
   def __init__(self, image, x = 0, y = 0, passable = 0):
@@ -91,6 +89,10 @@ class Tile(pyglet.sprite.Sprite):
 
   def is_passable(self):
     return self.passable == PASSABLE
+
+  
+  def print_tile(self):
+    print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)
 
 if __name__ == "__main__":
   game = Game() #creates a 'MyGame' instance
