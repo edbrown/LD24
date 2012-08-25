@@ -18,6 +18,20 @@ class VisibleEntity(pyglet.sprite.Sprite):
     self.x = (y * TILE_WIDTH / 2) + (x * TILE_WIDTH / 2)
     self.y = (x * TILE_HEIGHT / 2) - (y * TILE_HEIGHT / 2) + OFFSET_Y
 
+  def contains(self, x, y):
+    x_pos = x
+    y_pos = y
+    x_pos -= x % TILE_WIDTH
+    y_pos -= (y-OFFSET_Y) % TILE_HEIGHT
+
+    if x_pos == self.x:
+      if y_pos == self.y:
+        return True
+      else:
+        return False
+    else:
+      return False
+
   def print_coords(self):
     print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)
 

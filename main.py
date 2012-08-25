@@ -30,7 +30,10 @@ class Game(pyglet.window.Window):
 
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
-      print self.map.unit.x
+      for tile in self.map.tiles:
+        if(tile.contains(x, y) == True):
+          self.map.unit.move(tile.grid_x, tile.grid_y)
+          break;
 
 if __name__ == "__main__":
   game = Game() #creates a 'MyGame' instance
