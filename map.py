@@ -4,7 +4,6 @@ from tile import *
 from unit import *
 from definitions import *
 
-
 class Map():
   def __init__(self, data):
     self.data = data;

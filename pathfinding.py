@@ -12,6 +12,9 @@ class AStar:
 
         while len(open_list):
             current = self.get_minimum(open_list)
+
+            if current == None:
+                return None
             
             if current == end:
                 return self.reconstruct(start, end)
@@ -40,15 +43,21 @@ class AStar:
             path.append(current)
             current = current.parent
 
+        path.append(start)
         return path
 
     def get_minimum(self, elems):
         if len(elems) > 0:
-            minimum = elems[0]
+            minimum = None
 
             for n in elems:
-                if n.f < minimum.f and n.is_passable():
-                    minimum = n
+
+                if minimum == None:
+                    if n.is_passable():
+                        minimum = n
+                else:
+                    if n.f < minimum.f and n.is_passable():
+                        minimum = n
 
             return minimum
         

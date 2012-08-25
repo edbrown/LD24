@@ -4,8 +4,8 @@ from definitions import *
 class Tile(pyglet.sprite.Sprite):  
   def __init__(self, image, x = 0, y = 0, passable = 0):
     super(Tile, self).__init__(image)
-    self.grid_x = x
-    self.grid_y = y
+    self.grid_x = y
+    self.grid_y = x
     self.x = (y * TILE_WIDTH / 2) + (x * TILE_WIDTH / 2)
     self.y = (x * TILE_HEIGHT / 2) - (y * TILE_HEIGHT / 2) + OFFSET_Y
     self.passable = passable
