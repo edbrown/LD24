@@ -7,9 +7,13 @@ data = [
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
     ]
 TILE_WIDTH = 64
 TILE_HEIGHT = 32
+OFFSET_Y = 200;
 
 class Game(pyglet.window.Window):
   def __init__(self):
@@ -21,7 +25,7 @@ class Game(pyglet.window.Window):
 
 class Map():
   def __init__(self):
-    self.grid = pyglet.image.ImageGrid(pyglet.image.load("resources/tiles.png"), 16, 2, 64, 32)
+    self.grid = pyglet.image.ImageGrid(pyglet.image.load("resources/tiles.png"), 16, 2, TILE_WIDTH, TILE_HEIGHT)
     self.grid = pyglet.image.TextureGrid(self.grid)
     self.tiles = []
     for i in range(len(data)):
@@ -41,7 +45,7 @@ class Tile(pyglet.sprite.Sprite):
   def __init__(self, image, x = 0, y = 0):
     super(Tile, self).__init__(image)
     self.x = x;
-    self.y = y;
+    self.y = y + OFFSET_Y;
 
 if __name__ == "__main__":
   game = Game() #creates a 'MyGame' instance
