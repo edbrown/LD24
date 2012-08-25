@@ -1,7 +1,5 @@
 import pyglet
-OFFSET_Y = 200
-TILE_WIDTH = 64
-TILE_HEIGHT = 32
+from definitions import *
 
 class Unit(pyglet.sprite.Sprite):
   def __init__(self, image, x = 0, y = 0):

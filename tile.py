@@ -1,9 +1,5 @@
 import pyglet
-
-
-TILE_HEIGHT = 32
-TILE_WIDTH = 64
-OFFSET_Y = 200
+from definitions import *
 
 class Tile(pyglet.sprite.Sprite):  
   def __init__(self, image, x = 0, y = 0, passable = 0):
@@ -21,4 +17,4 @@ class Tile(pyglet.sprite.Sprite):
     return self.passable == PASSABLE
 
   def print_tile(self):
-    print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)
+    print 'X: {0}, Y: {1}'.format(self.grid_x, self.grid_y)

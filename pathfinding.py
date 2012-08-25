@@ -1,4 +1,5 @@
 import math
+from definitions import *
 
 class AStar:
     
@@ -46,7 +47,7 @@ class AStar:
             minimum = elems[0]
 
             for n in elems:
-                if n.f < minimum.f:
+                if n.f < minimum.f and n.is_passable():
                     minimum = n
 
             return minimum

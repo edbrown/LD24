@@ -2,6 +2,8 @@ import pyglet
 
 from pathfinding import *
 from map import *
+from definitions import *
+
 data = [
     [0,0,0,0,0,1,0,0,0,0],
     [0,0,0,0,0,0,1,0,0,0],
@@ -13,15 +15,6 @@ data = [
     [0,0,0,0,0,0,0,1,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     ]
-TILE_WIDTH = 64
-TILE_HEIGHT = 32
-OFFSET_Y = 200;
-
-LEFT_CLICK = 1
-RIGHT_CLICK = 4
-
-PASSABLE = 0
-IMPASSABLE  = 1
 
 
 class Game(pyglet.window.Window):
