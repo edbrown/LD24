@@ -19,3 +19,6 @@ class Tile(pyglet.sprite.Sprite):
 
   def is_passable(self):
     return self.passable == PASSABLE
+
+  def print_tile(self):
+    print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)

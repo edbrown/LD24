@@ -8,37 +8,36 @@ class AStar:
     def calcShortest(self, start, end):
         open_list = [ start ]
         closed = []
-        done = False
 
-        while not done:
+        while len(open_list):
             current = self.get_minimum(open_list)
-
+            
             if current == end:
-                end.parent = current
-                done = True
+                return self.reconstruct(start, end)
             else:
                 closed.append(current)
                 open_list.remove(current)
                 adj = self.map.get_adjacent(current)
                 for a in adj:
-                    if closed.count(a) != 0 and current.g < a.g:
-                        a.g = current.g + self.distance(a, current)
+                    
+                    if closed.count(a):
+                        continue
+                    temp_g = current.g + self.distance(a, current)
+                    
+                    if open_list.count(a) == 0 or temp_g < a.g:
+                        if open_list.count(a) == 0:
+                            open_list.append(a)
                         a.parent = current
-                    elif open_list.count(a) !=  0 and current.g < a.g:
-                        a.g = current.g + self.distance(a, current)
-                        a.parent = current
-                    else:
-                        open_list.append(a)
-                        a.g = 10000000
-                        
-        return self.reconstruct(start, end)
+                        a.g = temp_g
+                        a.f = a.g + self.distance(a, end)
 
     def reconstruct(self, start, end):
         path = []
         current = end
         while current != start:
-            current = current.parent
+            current.print_tile()
             path.append(current)
+            current = current.parent
 
         return path
 

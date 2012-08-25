@@ -28,6 +28,9 @@ class Game(pyglet.window.Window):
   def __init__(self):
     super(Game, self).__init__()
     self.map = Map(data)
+    self.pathfinding = AStar(self.map)
+
+    self.pathfinding.calcShortest(self.map.tiles[5], self.map.tiles[12])
 
   def on_draw(self):
     self.map.draw() 
