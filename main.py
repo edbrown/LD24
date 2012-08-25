@@ -22,17 +22,23 @@ class Game(pyglet.window.Window):
     super(Game, self).__init__()
     self.map = Map(data)
     self.pathfinding = AStar(self.map)
-
-    self.pathfinding.calcShortest(self.map.tiles[4], self.map.tiles[6])
+    pyglet.clock.schedule_interval(self.update, 1/120.0)
 
   def on_draw(self):
     self.map.draw() 
+ 
+  def update(self, dt):
+    self.map.unit.update(dt)
+
+
 
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
         if(tile.contains(x, y) == True):
-          self.map.unit.move(tile.grid_x, tile.grid_y)
+          tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), tile)
+          tasks.reverse()
+          self.map.unit.tasks = tasks
           break;
 
 if __name__ == "__main__":
