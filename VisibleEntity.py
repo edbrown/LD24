@@ -1,13 +1,14 @@
 import pyglet
+from definitions import *
 
 TILE_HEIGHT = 32
 TILE_WIDTH = 64
 OFFSET_Y = 200
 
 class VisibleEntity(pyglet.sprite.Sprite):
-  def __init__(self, image, x, y):
+  def __init__(self, image, x, y, passable = 1):
     super(VisibleEntity, self).__init__(image)
-    self.passable = True
+    self.passable = passable
     self.grid_x = x
     self.grid_y = y
     self.x = 0
@@ -17,6 +18,9 @@ class VisibleEntity(pyglet.sprite.Sprite):
   def set_real_coords(self, x, y):
     self.x = (y * TILE_WIDTH / 2) + (x * TILE_WIDTH / 2)
     self.y = (x * TILE_HEIGHT / 2) - (y * TILE_HEIGHT / 2) + OFFSET_Y
+
+  def set_passable(self, passable):
+    self.passable = passable
 
   def contains(self, x, y):
     x_pos = x
@@ -36,4 +40,4 @@ class VisibleEntity(pyglet.sprite.Sprite):
     print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)
 
   def is_passable(self):
-    return self.passable
+    return self.passable == PASSABLE
