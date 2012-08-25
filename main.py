@@ -31,7 +31,7 @@ class Game(pyglet.window.Window):
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
-        if(tile.contains(x, y) == True):
+        if tile.contains_2(x, y):
           self.map.unit.move(tile.grid_x, tile.grid_y)
           break;
 

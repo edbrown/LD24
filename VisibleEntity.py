@@ -32,6 +32,30 @@ class VisibleEntity(pyglet.sprite.Sprite):
     else:
       return False
 
+  def contains_2(self, x, y):
+    
+    y_pos = y - self.y
+    x_pos = x - self.x
+    
+    passed = 0
+    if y_pos >= 0 and y_pos <= TILE_HEIGHT and x_pos >= 0 and x_pos <= TILE_WIDTH:
+      alpha_data = self.image.get_image_data().get_data("A", self.image.get_image_data().width)
+      last_in_shape = True
+      while y_pos < self.image.height:
+        
+        if alpha_data[(y_pos * self.image.width) + x_pos] == 0:
+          if last_in_shape:
+            passed += 1
+          last_in_shape = False
+        else:
+          if last_in_shape:
+            passed += 1
+          last_in_shape = True
+          
+        y_pos += 1
+          
+    return (passed % 2) == 1
+
   def print_coords(self):
     print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)
 
