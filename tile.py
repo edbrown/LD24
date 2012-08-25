@@ -1,5 +1,6 @@
 import pyglet
 from VisibleEntity import *
+from definitions import *
 
 class Tile(VisibleEntity):  
   def __init__(self, image, x = 0, y = 0, passable = 0):

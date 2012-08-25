@@ -2,12 +2,7 @@ import pyglet
 
 from tile import *
 from unit import *
-
-PASSABLE = 0
-IMPASSABLE  = 1
-TILE_WIDTH = 64
-TILE_HEIGHT = 32
-OFFSET_Y = 200
+from definitions import *
 
 class Map():
   def __init__(self, data):
@@ -53,6 +48,3 @@ class Map():
       adj.append(self.get_tile(tile.grid_x, tile.grid_y + 1))
       
     return adj
-
-  def print_tile(self, tile):
-    print 'X: {0}, y: {1}, g_x: {2}, g_y: {3}'.format(tile.x, tile.y, tile.grid_x, tile.grid_y)
