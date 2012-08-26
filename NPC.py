@@ -7,8 +7,10 @@ from TaskQueue import *
 
 class NPC(AnimatedEntity):
   
-  def __init__(self, image, x = 0, y = 0):
-    super(NPC, self).__init__(image, x, y)
+  def __init__(self, image, tile):
+    super(NPC, self).__init__(image, tile.grid_x, tile.grid_y)
+    self.tile = tile
+    self.tile.add_person(self)
 
   def create_animations(self):
     sprite_sheet = pyglet.image.ImageGrid(pyglet.image.load("resources/minotaur.png"), 8, 24, 128, 128)

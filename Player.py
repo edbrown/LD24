@@ -10,12 +10,14 @@ class Player(AnimatedEntity):
   
   def __init__(self, game, image, x = 0, y = 0):
     super(Player, self).__init__(image, x, y)
+    print self.x
     self.tasks = TaskQueue()
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
     self.health = 100
     self.moving = False
+    self.game = game
 
 
   def create_animations(self):
@@ -118,7 +120,8 @@ class Player(AnimatedEntity):
     self.tasks.remove_task()
     
   def task_speak(self, person):
-    pass
+    self.game.message = person.speak()
+    self.tasks.remove_task()
 
   def find_direction(self, point):
     point_x = point.grid_x

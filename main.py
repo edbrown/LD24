@@ -5,6 +5,7 @@ from map import *
 from definitions import *
 from Message import *
 from Player import *
+from NPC import *
 
 data = [
     [0,0,0,0,0,1,0,0,0,0],
@@ -28,13 +29,16 @@ class Game(pyglet.window.Window):
     self.pause = False
     self.message = Message(["Well hello there, you sexy beast. This is long text...", "You bastard"]);
     self.player = Player(self, self.map.grid[2,1], 0, 0)
+    self.npc = NPC(self.map.grid[2,1], self.map.get_tile(7,5))
     self.player.create_animations()
+    self.npc.create_animations()
 
  
   def update(self, dt):
     self.clear()
     self.map.draw()
     self.player.draw()
+    self.npc.draw()
     if not self.message.finished:
       self.pause = True
       self.message.show()
@@ -57,12 +61,18 @@ class Game(pyglet.window.Window):
             move_loc = tile.get_move_loc()
             tasks = self.pathfinding.calcShortest(self.map.get_tile(self.player.grid_x, self.player.grid_y), self.map.get_tile(move_loc[0], move_loc[1]))
             if tasks:
-              tasks.reverse()
               if len(tasks) != 0:
-                tasks.pop(0)
                 self.player.tasks.clear_tasks()
+                tasks.reverse()
+                tasks.pop(0)
+                index = len(tasks) - 1
                 for task in tasks:
                   self.player.tasks.add_task(task, TASK_WALK)
+
+                if tasks[index].person:
+                  print "Speak task added"
+                  action = self.player.tasks.add_task(tasks[index].person, TASK_SPEAK)
+                  
             else:
               print "No path!"
             break;

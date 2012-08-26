@@ -4,7 +4,6 @@ from definitions import *
 
 class Tile(VisibleEntity):
 
-  
   def __init__(self, image, x = 0, y = 0, passable = 1):
     super(Tile, self).__init__(image, x, y)
     self.parent = None
@@ -12,6 +11,7 @@ class Tile(VisibleEntity):
     self.g = 0
     self.passable = passable
     self.item = None
+    self.person = None
 
   def add_item(self, item):
     self.item = item
@@ -19,6 +19,14 @@ class Tile(VisibleEntity):
   def remove_item(self, item):
     temp = self.item
     self.item = None
+    return temp
+
+  def add_person(self, person):
+    self.person = person
+
+  def remove_person(self, person):
+    temp = self.person
+    self.person = None
     return temp
 
   def is_empty(self):
