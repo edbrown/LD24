@@ -36,9 +36,13 @@ class Map():
     
     chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
     chest_grid = pyglet.image.TextureGrid(chest)
-    item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST)
+    item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
     self.chests.append(item)
-    self.tiles[15].add_item(item)
+    self.tiles[3].add_item(item)
+
+    item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, WEST)
+    self.chests.append(item)
+    self.tiles[12].add_item(item)
     
   def draw(self):
     for tile in self.tiles:

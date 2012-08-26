@@ -27,16 +27,30 @@ class Inventory_Item(pyglet.sprite.Sprite):
 
 class Item(VisibleEntity):
 
-    item_type = -1
-    item_holder = -1
-
-    def __init__(self, image, tile, item_type = ITEM_FOOD, item_holder = ITEM_LOCATION_FLOOR):
-        super(Item, self).__init__(image, tile.grid_x, tile.grid_y)
+    def __init__(self, image, tile, item_type, item_holder, item_direction = -1):
+        super(Item, self).__init__(image, tile.grid_y, tile.grid_x)
         self.item_type = item_type
         self.item_holder = item_holder
+        self.item_direction = item_direction
+        self.tile = tile
 
     def is_floor_item(self):
         return self.item_holder == ITEM_LOCATION_FLOOR
 
     def is_chest_item(self):
         return self.item_holder == ITEM_LOCATION_CHEST
+
+    def get_item_move_loc(self):
+        if self.is_chest_item():
+            if self.item_direction == NORTH:
+                return [self.tile.grid_x, self.tile.grid_y + 1]
+            elif self.item_direction == SOUTH:
+                return [self.tile.grid_x, self.tile.grid_y - 1]
+            elif self.item_direction == EAST:
+                return [self.tile.grid_x + 1, self.tile.grid_y]
+            else:
+                return [self.tile.grid_x - 1, self.tile.grid_y]
+
+        print "Item is not a chest"
+        print (self.tile.grid_x, self.tile.grid_y)
+        return  [self.tile.grid_x, self.tile.grid_y]

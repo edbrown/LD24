@@ -38,7 +38,8 @@ class Game(pyglet.window.Window):
       for tile in self.map.tiles:
         if(tile.contains(x, y) == True):
           if tile.is_passable():
-            tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), tile)
+            move_loc = tile.get_move_loc()
+            tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), self.map.get_tile(move_loc[0], move_loc[1]))
             if tasks:
               tasks.reverse()
               self.map.unit.tasks = tasks

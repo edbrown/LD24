@@ -4,7 +4,6 @@ from definitions import *
 
 class Tile(VisibleEntity):
 
-  item = None
   
   def __init__(self, image, x = 0, y = 0, passable = 1):
     super(Tile, self).__init__(image, x, y)
@@ -12,6 +11,7 @@ class Tile(VisibleEntity):
     self.f = 0
     self.g = 0
     self.passable = passable
+    self.item = None
 
   def add_item(self, item):
     self.item = item
@@ -20,6 +20,15 @@ class Tile(VisibleEntity):
     temp = self.item
     self.item = None
     return temp
+
+  def has_item(self):
+    return self.item != None
+
+  def get_move_loc(self):
+    if not self.has_item():
+      return [self.grid_x, self.grid_y]
+
+    return self.item.get_item_move_loc()
 
   def is_passable(self):
     return self.passable == PASSABLE
