@@ -3,6 +3,7 @@ import pyglet
 from tile import *
 from Player import *
 from definitions import *
+from item import *
 
 class Map():
   def __init__(self, data):
@@ -17,14 +18,23 @@ class Map():
         else:
           type = self.grid[0,0]
         self.tiles.append(Tile(type, i, j, self.data[i][j]))
+
     self.unit = Player(self.grid[2,1], 0, 0)
     self.unit.create_animations()
+
+    self.chests = []
+    chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
+    chest_grid = pyglet.image.TextureGrid(chest)
+    item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST)
+    self.chests.append(item)
+    self.tiles[15].add_item(item)
+    
   def draw(self):
     for tile in self.tiles:
       tile.draw()
+    for chest in self.chests:
+      chest.draw()
     self.unit.draw()
-
-
 
   def get_tile(self, x, y):
     for tile in self.tiles: 
@@ -32,7 +42,6 @@ class Map():
         return tile
     
     return None
-
 
   def get_adjacent(self, tile):
     
