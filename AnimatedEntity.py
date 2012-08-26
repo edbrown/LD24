@@ -14,20 +14,25 @@ class AnimatedEntity(VisibleEntity):
 
   def animate_walk(self, direction):
     if self.animation_walk[direction]:
-      self.image = self.animation_walk[direction]
+      if self.image != self.animation_walk[direction]:
+        self.image = self.animation_walk[direction]
 
   def animate_halt(self, direction):
     if self.animation_halt[direction]:
-      self.image = self.animation_halt[direction]
+      if self.image != self.animation_halt[direction]:
+        self.image = self.animation_halt[direction]
       
   def animate_attack(self, direction):
     if self.animation_attack[direction]:
-      self.image = self.animation_attack[direction]
+      if self.image != self.animation_attack[direction]:
+        self.image = self.animation_attack[direction]
 
   def animate_action(self, direction):
     if self.animation_action[direction]:
-      self.image = self.animation_action[direction]
+      if self.image != self.animation_action[direction]:
+        self.image = self.animation_action[direction]
 
   def animate_die(self, direction):
     if self.animation_die[direction]:
-      self.image = self.animation_die[direction]
+      if self.image != self.animation_die[direction]:
+        self.image = self.animation_die[direction]
