@@ -21,17 +21,19 @@ class Tile(VisibleEntity):
     self.item = None
     return temp
 
-  def has_item(self):
-    return self.item != None
+  def is_empty(self):
+    return self.item == None
 
   def get_move_loc(self):
-    if not self.has_item():
+    if self.is_empty():
       return [self.grid_x, self.grid_y]
 
     return self.item.get_item_move_loc()
 
   def is_passable(self):
-    return self.passable == PASSABLE
+    if self.is_empty:
+      return self.passable == PASSABLE
+    return self.passable == PASSABLE and self.item.is_chest_item()
   
   def set_passable(self, passable):
     self.passable = passable

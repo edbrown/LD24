@@ -26,7 +26,7 @@ class AnimatedEntity(VisibleEntity):
 
   def animate_action(self, direction):
     if self.animation_action[direction]:
-      self.image = self.animation_attack[direction]
+      self.image = self.animation_action[direction]
 
   def animate_die(self, direction):
     if self.animation_die[direction]:
