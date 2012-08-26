@@ -3,6 +3,7 @@ from AnimatedEntity import *
 from definitions import *
 from AnimationBuilder import *
 from TaskQueue import *
+from Inventory import *
 
 class Player(AnimatedEntity):
   
@@ -15,6 +16,7 @@ class Player(AnimatedEntity):
     self.scale = 0.5
     self.health = 100
     self.moving = False
+
 
   def create_animations(self):
     sprite_sheet = pyglet.image.ImageGrid(pyglet.image.load("resources/minotaur.png"), 8, 24, 128, 128)
@@ -77,18 +79,20 @@ class Player(AnimatedEntity):
       task = self.tasks.get_task()
         
       if task.is_walk():
-        self.action_walk(task.data, dt)
+        self.task_walk(task.data, dt)
       elif task.is_attack():
         pass
       elif task.is_action():
-        pass
+        self.task_action(task.data)
+      elif task.is_speak():
+        self.task_speak(task.data)
       else:
         print "Task not supported"
         
     else:
       self.animate_halt(self.direction)
 
-  def action_walk(self, point, dt):
+  def task_walk(self, point, dt):
     new_direction = self.find_direction(point)
     if(new_direction != self.direction):
       self.direction = new_direction
@@ -101,7 +105,20 @@ class Player(AnimatedEntity):
       if self.y == point.y:
         self.grid_x = point.grid_x
         self.grid_y = point.grid_y
-        point = self.tasks.remove_task()
+        self.tasks.remove_task()
+
+  def task_action(self, item):
+    new_direction = self.find_direction(item.tile)
+    if(new_direction != self.direction):
+      self.direction = new_direction
+      self.status = "change"
+
+    inv_item = self.map.chests.remove(item)
+    self.inventory.add_item(InventoryItem(inv_item.image, inv_item.item_type))
+    self.tasks.remove_task()
+    
+  def task_speak(self, person):
+    pass
 
   def find_direction(self, point):
     point_x = point.grid_x
