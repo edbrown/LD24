@@ -55,6 +55,7 @@ class Game(pyglet.window.Window):
             if tasks:
               tasks.reverse()
               if len(tasks) != 0:
+                tasks.pop(0)
                 self.map.unit.tasks.clear_tasks()
                 for task in tasks:
                   self.map.unit.tasks.add_task(task, TASK_WALK)
