@@ -47,5 +47,25 @@ class VisibleEntity(pyglet.sprite.Sprite):
     
     return (passed % 2) == 1
 
+  def find_direction(self, point):
+    point_x = point.grid_x
+    point_y = point.grid_y
+    self_x = self.grid_x
+    self_y = self.grid_y
+    direction = NORTH;
+
+    if(point_x == self_x):
+      if(point_y > self_y):
+        direction = WEST
+      if(point_y < self_y):
+        direction = EAST
+    elif(point_y == self_y):
+      if(point_x > self_x):
+        direction = NORTH
+      if(point_x < self_x):
+        direction = SOUTH
+
+    return direction
+
   def print_coords(self):
     print 'X: {0}, y: {1}'.format(self.grid_x, self.grid_y)

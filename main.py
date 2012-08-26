@@ -5,6 +5,7 @@ from map import *
 from definitions import *
 from Message import *
 from Player import *
+from Enemy import *
 from NPC import *
 
 data = [
@@ -32,12 +33,15 @@ class Game(pyglet.window.Window):
     self.npc = NPC(self.map.grid[2,1], self.map.get_tile(7,5))
     self.player.create_animations()
     self.npc.create_animations()
+    self.enemy = Enemy(self, self.map.grid[2,1], self.map.get_tile(1,5))
+    self.enemy.create_animations()
 
  
   def update(self, dt):
     self.clear()
     self.map.draw()
     self.player.draw()
+    self.enemy.draw()
     self.npc.draw()
     self.player.inventory.update()
 
@@ -49,6 +53,10 @@ class Game(pyglet.window.Window):
     if self.pause:
       return  
     self.player.update(dt)
+    if not self.enemy.tasks.has_tasks(): 
+      self.enemy.calculate_next_move()
+      self.enemy.tasks.add_task(self.enemy.next_move, TASK_WALK)
+    self.enemy.update(dt)
 
   def on_mouse_press(self, x, y, button, modifiers):
     if button == LEFT_CLICK:
@@ -71,9 +79,11 @@ class Game(pyglet.window.Window):
                 for task in tasks:
                   self.player.tasks.add_task(task, TASK_WALK)
 
-                if tasks[index].person:
-                  print "Speak task added"
+                if type(tasks[index].person) == NPC:
                   action = self.player.tasks.add_task(tasks[index].person, TASK_SPEAK)
+                if type(tasks[index].person) == Enemy:
+                  print "Add attack"
+                  action = self.player.tasks.add_task(tasks[index].person, TASK_ATTACK)
                   
             else:
               print "No path!"
