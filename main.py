@@ -81,8 +81,7 @@ class Game(pyglet.window.Window):
 
       for chest in self.map.chests:
         if chest.contains(x, y):
-          self.map.unit.tasks.add_task(chest, TASK_ACTION)
-
+          self.player.tasks.add_task(chest, TASK_ACTION)
 
 
 if __name__ == "__main__":

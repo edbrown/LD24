@@ -9,7 +9,7 @@ class Inventory(pyglet.sprite.Sprite):
     def __init__(self, image):
         super(Inventory, self).__init__(image)
 
-    def add_item(item):
+    def add_item(self, item):
         return self.items.append(item)
 
     def remove_item(self, index):

@@ -8,7 +8,7 @@ class InventoryItem(pyglet.sprite.Sprite):
     item_type = -1
     
     def __init__(self, image, item_type):
-        super(InventoryItem, self).__init__(image, x, y)
+        super(InventoryItem, self).__init__(image)
         self.item_type = item_type
 
     def is_food(self):
@@ -29,33 +29,33 @@ class Item(AnimatedEntity):
 
     def __init__(self, image, tile, item_type, item_holder, item_direction = -1):
         super(Item, self).__init__(image, tile.grid_x, tile.grid_y)
-        self.item_type = item_type
-        self.item_holder = item_holder
-        self.item_direction = item_direction
+        self.type = item_type
+        self.holder = item_holder
+        self.direction = item_direction
         self.tile = tile
         
     def is_floor_item(self):
-        return self.item_holder == ITEM_LOCATION_FLOOR
+        return self.holder == ITEM_LOCATION_FLOOR
 
     def is_chest_item(self):
-        return self.item_holder == ITEM_LOCATION_CHEST
+        return self.holder == ITEM_LOCATION_CHEST
 
     def is_food(self):
-        return self.item_type == ITEM_FOOD
+        return self.type == ITEM_FOOD
 
     def is_potion(self):
-        return self.item_type == ITEM_POTION
+        return self.type == ITEM_POTION
 
     def get_direction(self):
-        return self.item_direction
+        return self.direction
 
     def get_item_move_loc(self):
         if self.is_chest_item():
-            if self.item_direction == NORTH:
+            if self.direction == NORTH:
                 return [self.tile.grid_x, self.tile.grid_y + 1]
-            elif self.item_direction == SOUTH:
+            elif self.direction == SOUTH:
                 return [self.tile.grid_x, self.tile.grid_y - 1]
-            elif self.item_direction == EAST:
+            elif self.direction == EAST:
                 return [self.tile.grid_x + 1, self.tile.grid_y]
             else:
                 return [self.tile.grid_x - 1, self.tile.grid_y]

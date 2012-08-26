@@ -4,6 +4,7 @@ from definitions import *
 from AnimationBuilder import *
 from TaskQueue import *
 from Inventory import *
+from item import *
 
 class Player(AnimatedEntity):
   
@@ -118,8 +119,9 @@ class Player(AnimatedEntity):
       self.direction = new_direction
       self.status = "change"
 
-    inv_item = self.map.chests.remove(item)
-    self.inventory.add_item(InventoryItem(inv_item.image, inv_item.item_type))
+    item.animate_action(self.find_direction(item.tile))
+    inv_item = self.game.map.chests.remove(item)
+    self.inventory.add_item(InventoryItem(item.image, item.type))
     self.tasks.remove_task()
     
   def task_speak(self, person):
