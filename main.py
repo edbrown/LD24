@@ -39,7 +39,7 @@ class Game(pyglet.window.Window):
     self.map.draw()
     self.player.draw()
     self.npc.draw()
-    self.map.unit.inventory.show()
+    self.player.inventory.show()
 
     if not self.message.finished:
       self.pause = True
