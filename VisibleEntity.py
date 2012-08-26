@@ -6,9 +6,8 @@ TILE_WIDTH = 64
 OFFSET_Y = 200
 
 class VisibleEntity(pyglet.sprite.Sprite):
-  def __init__(self, image, x, y, passable = 1):
+  def __init__(self, image, x, y):
     super(VisibleEntity, self).__init__(image)
-    self.passable = passable
     self.grid_x = x
     self.grid_y = y
     self.x = 0

@@ -11,6 +11,14 @@ class Unit(VisibleEntity):
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
+    self.health = 100
+
+  def change_health(self, amount):
+    self.health += amount
+
+  def is_alive(self):
+    return self.health > 0  
+    
 
   def move(self, x, y, dt):
     if self.x < x:
@@ -67,9 +75,6 @@ class Unit(VisibleEntity):
         direction = NORTH
       if(point_x < self_x):
         direction = SOUTH
-
-
-    print direction
 
     return direction
   
