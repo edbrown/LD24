@@ -36,28 +36,40 @@ class VisibleEntity(pyglet.sprite.Sprite):
     else:
       return False
 
+  def get_pixel(self, x, y):
+    if x > self.x and y > self.y and x < (self.x + TILE_WIDTH) and y < (self.y + TILE_HEIGHT):
+
+      y_pos = y - self.y
+      x_pos = x - self.x
+      
+      pixel = self.image.get_region(x_pos, y_pos, 1, 1).get_image_data()
+      data = pixel.get_data('A', 1)
+      components = map(ord, list(data))
+      return [float(c) for c in components]
+
+    return [0.0]
+
   def contains_2(self, x, y):
     
-    y_pos = y - self.y
-    x_pos = x - self.x
-    
     passed = 0
-    if y_pos >= 0 and y_pos <= TILE_HEIGHT and x_pos >= 0 and x_pos <= TILE_WIDTH:
-      alpha_data = self.image.get_image_data().get_data("A", self.image.get_image_data().width)
-      last_in_shape = True
-      while y_pos < self.image.height:
-        
-        if alpha_data[(y_pos * self.image.width) + x_pos] == 0:
-          if last_in_shape:
-            passed += 1
-          last_in_shape = False
-        else:
-          if last_in_shape:
-            passed += 1
-          last_in_shape = True
+    last_in_shape = None
+    y_pos = y
+    while y_pos < (self.y + self.image.height):
+      alpha_data = self.get_pixel(x, y_pos)
+      if alpha_data[0] == 0.0:
+        if last_in_shape == True:
+          passed += 1
+        last_in_shape = False
+      else:
+        if last_in_shape == False:
+          passed += 1
+        last_in_shape = True
           
-        y_pos += 1
-          
+      y_pos += 1
+
+    print "Passed"
+    print passed 
+    
     return (passed % 2) == 1
 
   def print_coords(self):
