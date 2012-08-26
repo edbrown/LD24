@@ -13,6 +13,7 @@ class Player(AnimatedEntity):
     self.direction = NORTH
     self.scale = 0.5
     self.health = 100
+    self.moving = False
 
   def create_animations(self):
     sprite_sheet = pyglet.image.ImageGrid(pyglet.image.load("resources/minotaur.png"), 8, 24, 128, 128)
@@ -24,10 +25,10 @@ class Player(AnimatedEntity):
       AnimationBuilder.build(grid, 2, 4, 11)
     ]
     self.animation_halt = [
-      AnimationBuilder.build(grid, 4, 4, 11),
-      AnimationBuilder.build(grid, 0, 4, 11),
-      AnimationBuilder.build(grid, 6, 4, 11),
-      AnimationBuilder.build(grid, 2, 4, 11)
+      AnimationBuilder.build(grid, 4, 0, 3),
+      AnimationBuilder.build(grid, 0, 0, 3),
+      AnimationBuilder.build(grid, 6, 0, 3),
+      AnimationBuilder.build(grid, 2, 0, 3)
     ]
     self.animation_action = [
       AnimationBuilder.build(grid, 4, 4, 11),
@@ -76,24 +77,22 @@ class Player(AnimatedEntity):
       new_direction = self.find_direction(point)
       if(new_direction != self.direction):
         self.direction = new_direction
+        self.status = "change"
         self.animate_walk(self.direction)
 
+      if not self.moving:
+        self.animate_walk(self.direction)
+      
       self.move(point.x, point.y, dt)
+      self.moving = True
       if self.x == point.x:
         if self.y == point.y:
           self.grid_x = point.grid_x
           self.grid_y = point.grid_y
-
           point = self.tasks.pop(0)
-    
-
-  
-  def set_animation(self, north, south, east, west):
-    self.image = north
-    self.animation_north = (north)
-    self.animation_south = (south)
-    self.animation_east = (east)
-    self.animation_west = (west)
+    else:
+      self.moving = False
+      self.animate_halt(self.direction)
 
   def find_direction(self, point):
     point_x = point.grid_x
