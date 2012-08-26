@@ -63,7 +63,7 @@ class Game(pyglet.window.Window):
             move_loc = tile.get_move_loc()
             tasks = self.pathfinding.calcShortest(self.map.get_tile(self.player.grid_x, self.player.grid_y), self.map.get_tile(move_loc[0], move_loc[1]))
             if tasks:
-              if len(tasks) != 0:
+              if len(tasks) > 1:
                 self.player.tasks.clear_tasks()
                 tasks.reverse()
                 tasks.pop(0)
