@@ -3,12 +3,12 @@ import pyglet
 from definitions import *
 from AnimatedEntity import *
 
-class Inventory_Item(pyglet.sprite.Sprite):
+class InventoryItem(pyglet.sprite.Sprite):
     
     item_type = -1
     
     def __init__(self, image, item_type):
-        super(Item, self).__init__(image, x, y)
+        super(InventoryItem, self).__init__(image, x, y)
         self.item_type = item_type
 
     def is_food(self):
@@ -32,13 +32,18 @@ class Item(AnimatedEntity):
         self.item_type = item_type
         self.item_holder = item_holder
         self.item_direction = item_direction
-        self.tile = tile
-
+        
     def is_floor_item(self):
         return self.item_holder == ITEM_LOCATION_FLOOR
 
     def is_chest_item(self):
         return self.item_holder == ITEM_LOCATION_CHEST
+
+    def is_food(self):
+        return self.item_type == ITEM_FOOD
+
+    def is_potion(self):
+        return self.item_type == ITEM_POTION
 
     def get_direction(self):
         return self.item_direction
@@ -54,4 +59,4 @@ class Item(AnimatedEntity):
             else:
                 return [self.tile.grid_x - 1, self.tile.grid_y]
 
-        return  [self.tile.grid_x, self.tile.grid_y]
+        return  [self.tile.grid_x, self.tile.grid_y]        

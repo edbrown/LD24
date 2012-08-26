@@ -15,6 +15,9 @@ class Task():
 
     def is_action(self):
         return self.task_type == TASK_ACTION
+
+    def is_speak(self):
+        return self.task_type == TASK_SPEAK
         
 
 class TaskQueue():
