@@ -39,7 +39,6 @@ class AStar:
         path = []
         current = end
         while current != start:
-            current.print_coords()
             path.append(current)
             current = current.parent
 
