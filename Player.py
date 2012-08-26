@@ -106,6 +106,10 @@ class Player(AnimatedEntity):
     self.animate_walk(self.direction)
     self.move(point.x, point.y, dt)
 
+    if point.item:
+      if point.item.is_floor_item():
+        self.task_action(point.item)
+
     if self.x == point.x:
       if self.y == point.y:
         self.grid_x = point.grid_x
@@ -119,7 +123,8 @@ class Player(AnimatedEntity):
       self.status = "change"
 
     item.animate_action(self.find_direction(item.tile))
-    inv_item = self.game.map.chests.remove(item)
+    inv_item = self.game.map.items.remove(item)
+    item.tile.remove_item(item)
     self.inventory.add_item(InventoryItem(item.image, item.type))
     self.tasks.remove_task()
     

@@ -72,16 +72,21 @@ class Game(pyglet.window.Window):
                   self.player.tasks.add_task(task, TASK_WALK)
 
                 if tasks[index].person:
-                  print "Speak task added"
                   action = self.player.tasks.add_task(tasks[index].person, TASK_SPEAK)
                   
             else:
               print "No path!"
             break;
 
-      for chest in self.map.chests:
-        if chest.contains(x, y):
-          self.player.tasks.add_task(chest, TASK_ACTION)
+      for item in self.map.items:
+        if item.is_chest_item():
+          if item.contains(x, y):
+            self.player.tasks.add_task(item, TASK_ACTION)
+
+      for item in  self.player.inventory.items:
+        if item.contains(x, y):
+          item.action(self.player)
+          self.player.inventory.items.remove(item)
 
 
 if __name__ == "__main__":

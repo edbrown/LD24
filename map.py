@@ -19,36 +19,35 @@ class Map():
           type = self.grid[0,0]
         self.tiles.append(Tile(type, i, j, self.data[i][j]))
 
-    self.chests = []
+    self.items = []
     chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
     chest_grid = pyglet.image.TextureGrid(chest)
     item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
-    self.chests.append(item)
+    self.items.append(item)
     self.tiles[3].add_item(item)
     
     item = Item(chest_grid[0,0], self.tiles[4], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
-    self.chests.append(item)
+    self.items.append(item)
     self.tiles[4].add_item(item)
 
     item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, SOUTH)
-    self.chests.append(item)
+    self.items.append(item)
     self.tiles[12].add_item(item)
     
   def draw(self):
     for tile in self.tiles:
       tile.draw()
-    for chest in self.chests:
-      chest.draw()
+    for item in self.items:
+      item.draw()
 
   def get_tile(self, x, y):
     for tile in self.tiles: 
       if tile.grid_x == x and tile.grid_y == y:
         return tile
     
-    return None
+    return None    
 
   def get_adjacent(self, tile):
-    
     adj = []
     if tile.grid_x > 0:
       adj.append(self.get_tile(tile.grid_x - 1, tile.grid_y))
