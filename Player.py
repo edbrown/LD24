@@ -1,17 +1,54 @@
 import pyglet
 from AnimatedEntity import *
 from definitions import *
+from AnimationBuilder import *
 
-class Unit(AnimatedEntity):
+class Player(AnimatedEntity):
   
   
   def __init__(self, image, x = 0, y = 0):
-    super(Unit, self).__init__(image, x, y)
+    super(Player, self).__init__(image, x, y)
     self.tasks = []
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
     self.health = 100
+
+  def create_animations(self):
+    sprite_sheet = pyglet.image.ImageGrid(pyglet.image.load("resources/minotaur.png"), 8, 24, 128, 128)
+    grid = pyglet.image.TextureGrid(sprite_sheet)
+    self.animation_walk = [
+      AnimationBuilder.build(grid, 4, 4, 11),
+      AnimationBuilder.build(grid, 0, 4, 11),
+      AnimationBuilder.build(grid, 6, 4, 11),
+      AnimationBuilder.build(grid, 2, 4, 11)
+    ]
+    self.animation_halt = [
+      AnimationBuilder.build(grid, 4, 4, 11),
+      AnimationBuilder.build(grid, 0, 4, 11),
+      AnimationBuilder.build(grid, 6, 4, 11),
+      AnimationBuilder.build(grid, 2, 4, 11)
+    ]
+    self.animation_action = [
+      AnimationBuilder.build(grid, 4, 4, 11),
+      AnimationBuilder.build(grid, 0, 4, 11),
+      AnimationBuilder.build(grid, 6, 4, 11),
+      AnimationBuilder.build(grid, 2, 4, 11)
+    ]
+    self.animation_attack = [
+      AnimationBuilder.build(grid, 4, 4, 11),
+      AnimationBuilder.build(grid, 0, 4, 11),
+      AnimationBuilder.build(grid, 6, 4, 11),
+      AnimationBuilder.build(grid, 2, 4, 11)
+    ]
+    self.animation_die = [
+      AnimationBuilder.build(grid, 4, 4, 11),
+      AnimationBuilder.build(grid, 0, 4, 11),
+      AnimationBuilder.build(grid, 6, 4, 11),
+      AnimationBuilder.build(grid, 2, 4, 11)
+    ]
+
+    self.animate_halt(NORTH)
 
   def change_health(self, amount):
     self.health += amount
@@ -39,7 +76,7 @@ class Unit(AnimatedEntity):
       new_direction = self.find_direction(point)
       if(new_direction != self.direction):
         self.direction = new_direction
-        self.image = self.get_animation()
+        self.animate_walk(self.direction)
 
       self.move(point.x, point.y, dt)
       if self.x == point.x:
