@@ -31,8 +31,6 @@ class Game(pyglet.window.Window):
   def update(self, dt):
     self.map.unit.update(dt)
 
-
-
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
@@ -42,7 +40,10 @@ class Game(pyglet.window.Window):
             tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), self.map.get_tile(move_loc[0], move_loc[1]))
             if tasks:
               tasks.reverse()
-              self.map.unit.tasks = tasks
+              if len(tasks) != 0:
+                self.map.unit.tasks.clear_tasks()
+                for task in tasks:
+                  self.map.unit.tasks.add_task(task, TASK_WALK)
             else:
               print "No path!"
             break;

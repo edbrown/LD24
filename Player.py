@@ -2,13 +2,14 @@ import pyglet
 from AnimatedEntity import *
 from definitions import *
 from AnimationBuilder import *
+from TaskQueue import *
 
 class Player(AnimatedEntity):
   
   
   def __init__(self, image, x = 0, y = 0):
     super(Player, self).__init__(image, x, y)
-    self.tasks = []
+    self.tasks = TaskQueue()
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
@@ -72,27 +73,35 @@ class Player(AnimatedEntity):
       self.y -= self.speed
 
   def update(self, dt):
-    if self.tasks:
-      point = self.tasks[0]
-      new_direction = self.find_direction(point)
-      if(new_direction != self.direction):
-        self.direction = new_direction
-        self.status = "change"
-        self.animate_walk(self.direction)
-
-      if not self.moving:
-        self.animate_walk(self.direction)
-      
-      self.move(point.x, point.y, dt)
-      self.moving = True
-      if self.x == point.x:
-        if self.y == point.y:
-          self.grid_x = point.grid_x
-          self.grid_y = point.grid_y
-          point = self.tasks.pop(0)
+    if self.tasks.has_tasks():
+      task = self.tasks.get_task()
+        
+      if task.is_walk():
+        self.action_walk(task.data, dt)
+      elif task.is_attack():
+        pass
+      elif task.is_action():
+        pass
+      else:
+        print "Task not supported"
+        
     else:
-      self.moving = False
       self.animate_halt(self.direction)
+
+  def action_walk(self, point, dt):
+    new_direction = self.find_direction(point)
+    if(new_direction != self.direction):
+      self.direction = new_direction
+      self.status = "change"
+
+    self.animate_walk(self.direction)
+    self.move(point.x, point.y, dt)
+
+    if self.x == point.x:
+      if self.y == point.y:
+        self.grid_x = point.grid_x
+        self.grid_y = point.grid_y
+        point = self.tasks.remove_task()
 
   def find_direction(self, point):
     point_x = point.grid_x
