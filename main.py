@@ -39,6 +39,8 @@ class Game(pyglet.window.Window):
     self.map.draw()
     self.player.draw()
     self.npc.draw()
+    self.map.unit.inventory.show()
+
     if not self.message.finished:
       self.pause = True
       self.message.show()
@@ -76,6 +78,10 @@ class Game(pyglet.window.Window):
             else:
               print "No path!"
             break;
+
+      for chest in self.map.chests:
+        if chest.contains(x, y):
+          self.map.unit.tasks.add_task(chest, TASK_ACTION)
 
 
 
