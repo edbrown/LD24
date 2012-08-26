@@ -5,6 +5,7 @@ from AnimationBuilder import *
 from TaskQueue import *
 from Inventory import *
 from item import *
+from pyglet.gl import *
 
 class Player(AnimatedEntity):
   
@@ -93,6 +94,13 @@ class Player(AnimatedEntity):
         self.task_speak(task.data)
       else:
         print "Task not supported"
+
+      glMatrixMode(GL_MODELVIEW)
+      glLoadIdentity()
+
+      glTranslatef(-self.x/2, -self.y/2, 1.0)
+      glPushMatrix()
+      glPopMatrix()
         
     else:
       self.animate_halt(self.direction)

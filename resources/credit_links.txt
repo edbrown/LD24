@@ -3,3 +3,6 @@ walls: http://opengameart.org/content/castle-walls-isometric-64-x-128
 indoor tiles: http://opengameart.org/content/cracked-tiles-flare-tileset
 tombwoof: http://opengameart.org/content/tombwoof-tiles
 dungeon_walls: http://opengameart.org/content/classic-dungeon-walls
+various ones: http://opengameart.org/content/coastal-tent-buildings-and-animated-signal-fire-unknown-horizons-2d
+demon: http://opengameart.org/content/isometric-demon-statue
+male & female hero: http://opengameart.org/content/isometric-hero-and-heroine
