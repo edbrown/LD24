@@ -40,6 +40,9 @@ class Item(AnimatedEntity):
     def is_chest_item(self):
         return self.item_holder == ITEM_LOCATION_CHEST
 
+    def get_direction(self):
+        return self.item_direction
+
     def get_item_move_loc(self):
         if self.is_chest_item():
             if self.item_direction == NORTH:

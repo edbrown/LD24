@@ -29,7 +29,7 @@ class Map():
     self.chests.append(item)
     self.tiles[3].add_item(item)
 
-    item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, WEST)
+    item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, SOUTH)
     self.chests.append(item)
     self.tiles[12].add_item(item)
     
