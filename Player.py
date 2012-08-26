@@ -11,7 +11,6 @@ class Player(AnimatedEntity):
   
   def __init__(self, game, image, x = 0, y = 0):
     super(Player, self).__init__(image, x, y)
-    print self.x
     self.tasks = TaskQueue()
     self.speed = 1
     self.direction = NORTH

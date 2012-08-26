@@ -32,7 +32,7 @@ class VisibleEntity(pyglet.sprite.Sprite):
     passed = 0
     last_in_shape = None
     y_pos = y
-    while y_pos < (self.y + self.image.height):
+    while y_pos < (y + self.image.height):
       alpha_data = self.get_pixel(x, y_pos)
       if alpha_data[0] == 0.0:
         if last_in_shape == True:

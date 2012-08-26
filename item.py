@@ -10,6 +10,7 @@ class InventoryItem(pyglet.sprite.Sprite):
     def __init__(self, image, item_type):
         super(InventoryItem, self).__init__(image)
         self.item_type = item_type
+        self.scale = 0.5
 
     def is_food(self):
         return self.item_type == ITEM_FOOD
@@ -24,6 +25,11 @@ class InventoryItem(pyglet.sprite.Sprite):
             unit.change_health(+30)
         else:
             print "ERROR: Item type not recognised"
+
+    def show(self, x, y):
+        self.x = x
+        self.y = y
+        self.draw()
 
 class Item(AnimatedEntity):
 

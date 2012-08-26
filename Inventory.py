@@ -20,3 +20,19 @@ class Inventory(pyglet.sprite.Sprite):
 
     def show(self):
         self.image.blit(0, 0)
+
+    def update(self):
+        self.show()
+        x = 14
+        y = 113
+        no = 0
+        for item in self.items:
+            item.show(x, y)
+            x += 35
+            no += 1
+            
+            if (no % 6) == 0: 
+                y -= 20
+                x = 14
+
+            

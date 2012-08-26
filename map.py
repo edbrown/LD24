@@ -25,6 +25,10 @@ class Map():
     item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
     self.chests.append(item)
     self.tiles[3].add_item(item)
+    
+    item = Item(chest_grid[0,0], self.tiles[4], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
+    self.chests.append(item)
+    self.tiles[4].add_item(item)
 
     item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, SOUTH)
     self.chests.append(item)
