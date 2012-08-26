@@ -1,8 +1,8 @@
 import pyglet
-from VisibleEntity import *
+from AnimatedEntity import *
 from definitions import *
 
-class Unit(VisibleEntity):
+class Unit(AnimatedEntity):
   
   
   def __init__(self, image, x = 0, y = 0):
