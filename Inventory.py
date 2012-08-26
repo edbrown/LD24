@@ -6,8 +6,8 @@ class Inventory(pyglet.sprite.Sprite):
     
     items = []
     
-    def __init__(self, image, x, y):
-        super(Inventory, self).__init__(image, x, y)
+    def __init__(self, image):
+        super(Inventory, self).__init__(image)
 
     def add_item(item):
         return self.items.append(item)
@@ -17,3 +17,6 @@ class Inventory(pyglet.sprite.Sprite):
    
     def item_count(self, item):
         return items.count(item)
+
+    def show(self):
+        self.image.blit(0, 0)

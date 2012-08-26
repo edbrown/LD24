@@ -32,6 +32,7 @@ class Item(AnimatedEntity):
         self.item_type = item_type
         self.item_holder = item_holder
         self.item_direction = item_direction
+        self.tile = tile
         
     def is_floor_item(self):
         return self.item_holder == ITEM_LOCATION_FLOOR

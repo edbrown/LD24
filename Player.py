@@ -17,6 +17,9 @@ class Player(AnimatedEntity):
     self.health = 100
     self.moving = False
 
+    inventory_image = pyglet.image.load("resources/inventory.png")
+    self.inventory = Inventory(inventory_image)
+
 
   def create_animations(self):
     sprite_sheet = pyglet.image.ImageGrid(pyglet.image.load("resources/minotaur.png"), 8, 24, 128, 128)
