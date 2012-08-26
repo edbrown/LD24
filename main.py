@@ -25,6 +25,7 @@ class Game(pyglet.window.Window):
     pyglet.clock.schedule_interval(self.update, 1/120.0)
 
   def on_draw(self):
+    self.clear()
     self.map.draw() 
  
   def update(self, dt):
