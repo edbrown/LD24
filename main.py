@@ -27,7 +27,7 @@ class Game(pyglet.window.Window):
     pyglet.clock.schedule_interval(self.update, 1/120.0)
     self.pause = False
     self.message = Message(["Well hello there, you sexy beast. This is long text...", "You bastard"]);
-    self.player = Player(self.map.grid[2,1], 0, 0)
+    self.player = Player(self, self.map.grid[2,1], 0, 0)
     self.player.create_animations()
 
  

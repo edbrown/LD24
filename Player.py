@@ -7,7 +7,7 @@ from TaskQueue import *
 class Player(AnimatedEntity):
   
   
-  def __init__(self, image, x = 0, y = 0):
+  def __init__(self, game, image, x = 0, y = 0):
     super(Player, self).__init__(image, x, y)
     self.tasks = TaskQueue()
     self.speed = 1
