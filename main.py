@@ -82,7 +82,7 @@ class Game(pyglet.window.Window):
                 if type(tasks[index].person) == NPC:
                   action = self.player.tasks.add_task(tasks[index].person, TASK_SPEAK)
                 if type(tasks[index].person) == Enemy:
-                  print "Add attack"
+                  self.player.tasks.tasks.pop()
                   action = self.player.tasks.add_task(tasks[index].person, TASK_ATTACK)
                   
             else:

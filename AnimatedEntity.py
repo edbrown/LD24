@@ -77,7 +77,6 @@ class AnimatedEntity(VisibleEntity):
       if task.is_walk():
         self.task_walk(task.data, dt)
       elif task.is_attack():
-        print "elif"
         self.task_attack(task.data)
       elif task.is_action():
         self.task_action(task.data)
@@ -120,5 +119,4 @@ class AnimatedEntity(VisibleEntity):
     self.tasks.remove_task()
 
   def task_attack(self, person):
-    print "Attack@!!@"
-    self.tasks.remove_task()
+    self.animate_attack(self.direction)
