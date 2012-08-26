@@ -44,6 +44,7 @@ class Unit(VisibleEntity):
 
   
   def set_animation(self, north, south, east, west):
+    self.image = north
     self.animation_north = (north)
     self.animation_south = (south)
     self.animation_east = (east)
