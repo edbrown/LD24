@@ -19,9 +19,6 @@ class Map():
           type = self.grid[0,0]
         self.tiles.append(Tile(type, i, j, self.data[i][j]))
 
-    self.unit = Player(self.grid[2,1], 0, 0)
-    self.unit.create_animations()
-
     self.chests = []
     chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
     chest_grid = pyglet.image.TextureGrid(chest)
@@ -38,7 +35,6 @@ class Map():
       tile.draw()
     for chest in self.chests:
       chest.draw()
-    self.unit.draw()
 
   def get_tile(self, x, y):
     for tile in self.tiles: 
