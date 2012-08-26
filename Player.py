@@ -48,10 +48,7 @@ class Player(AnimatedEntity):
       AnimationBuilder.build(grid, 2, 4, 11)
     ]
 
-    print self.animation_halt[0]
-
-    self.image = self.animation_halt[NORTH]
-
+    self.animate_halt(NORTH)
 
   def change_health(self, amount):
     self.health += amount
@@ -79,7 +76,7 @@ class Player(AnimatedEntity):
       new_direction = self.find_direction(point)
       if(new_direction != self.direction):
         self.direction = new_direction
-        self.image = self.walk(self.direction)
+        self.animate_walk(self.direction)
 
       self.move(point.x, point.y, dt)
       if self.x == point.x:
