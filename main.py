@@ -36,7 +36,7 @@ class Game(pyglet.window.Window):
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
-        if(tile.contains(x, y) == True):
+        if(tile.contains_2(x, y) == True):
           tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), tile)
           if tasks:
             tasks.reverse()
