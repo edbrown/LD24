@@ -36,14 +36,15 @@ class Game(pyglet.window.Window):
   def on_mouse_press(self, x, y, button, modifiers):
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
-        if(tile.contains_2(x, y) == True):
-          tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), tile)
-          if tasks:
-            tasks.reverse()
-            self.map.unit.tasks = tasks
-          else:
-            print "No path!"
-          break;
+        if(tile.contains(x, y) == True):
+          if tile.is_passable():
+            tasks = self.pathfinding.calcShortest(self.map.get_tile(self.map.unit.grid_x, self.map.unit.grid_y), tile)
+            if tasks:
+              tasks.reverse()
+              self.map.unit.tasks = tasks
+            else:
+              print "No path!"
+            break;
 
 if __name__ == "__main__":
   game = Game() #creates a 'MyGame' instance

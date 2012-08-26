@@ -22,20 +22,6 @@ class VisibleEntity(pyglet.sprite.Sprite):
   def set_passable(self, passable):
     self.passable = passable
 
-  def contains(self, x, y):
-    x_pos = x
-    y_pos = y
-    x_pos -= x % TILE_WIDTH
-    y_pos -= (y-OFFSET_Y) % TILE_HEIGHT
-
-    if x_pos == self.x:
-      if y_pos == self.y:
-        return True
-      else:
-        return False
-    else:
-      return False
-
   def get_pixel(self, x, y):
     if x > self.x and y > self.y and x < (self.x + TILE_WIDTH) and y < (self.y + TILE_HEIGHT):
 
@@ -49,7 +35,7 @@ class VisibleEntity(pyglet.sprite.Sprite):
 
     return [0.0]
 
-  def contains_2(self, x, y):
+  def contains(self, x, y):
     
     passed = 0
     last_in_shape = None
@@ -66,9 +52,6 @@ class VisibleEntity(pyglet.sprite.Sprite):
         last_in_shape = True
           
       y_pos += 1
-
-    print "Passed"
-    print passed 
     
     return (passed % 2) == 1
 
