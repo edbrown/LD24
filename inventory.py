@@ -2,7 +2,7 @@ import pyglet
 
 from definitions import *
 
-class Inventory(VisibleEntity):
+class Inventory(pyglet.sprite.Sprite):
     
     items = []
     

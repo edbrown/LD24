@@ -1,13 +1,14 @@
 import pyglet
 
 from definitions import *
+from VisibleEntity import *
 
 class Inventory_Item(pyglet.sprite.Sprite):
     
     item_type = -1
     
     def __init__(self, image, item_type):
-        super(Item, self).__init__(image)
+        super(Item, self).__init__(image, x, y)
         self.item_type = item_type
 
     def is_food(self):
@@ -24,10 +25,18 @@ class Inventory_Item(pyglet.sprite.Sprite):
         else:
             print "ERROR: Item type not recognised"
 
-class Item(VisibleItem):
+class Item(VisibleEntity):
 
     item_type = -1
+    item_holder = -1
 
-    def __init__(self, image, tile, item_type):
-        super(Item, self).__init__(image, tile.x, tile.y)
+    def __init__(self, image, tile, item_type = ITEM_FOOD, item_holder = ITEM_LOCATION_FLOOR):
+        super(Item, self).__init__(image, tile.grid_x, tile.grid_y)
         self.item_type = item_type
+        self.item_holder = item_holder
+
+    def is_floor_item(self):
+        return self.item_holder == ITEM_LOCATION_FLOOR
+
+    def is_chest_item(self):
+        return self.item_holder == ITEM_LOCATION_CHEST
