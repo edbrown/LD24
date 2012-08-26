@@ -3,12 +3,12 @@ import pyglet
 from definitions import *
 from AnimatedEntity import *
 
-class InventoryItem(pyglet.sprite.Sprite):
+class InventoryItem(VisibleEntity):
     
     item_type = -1
     
     def __init__(self, image, item_type):
-        super(InventoryItem, self).__init__(image)
+        super(InventoryItem, self).__init__(image, 0, 0)
         self.item_type = item_type
         self.scale = 0.5
 

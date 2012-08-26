@@ -5,6 +5,7 @@ from AnimationBuilder import *
 from TaskQueue import *
 from Inventory import *
 from item import *
+from pyglet.gl import *
 
 class Player(AnimatedEntity):
   
@@ -93,6 +94,13 @@ class Player(AnimatedEntity):
         self.task_speak(task.data)
       else:
         print "Task not supported"
+
+      glMatrixMode(GL_MODELVIEW)
+      glLoadIdentity()
+
+      glTranslatef(-self.x/2, -self.y/2, 1.0)
+      glPushMatrix()
+      glPopMatrix()
         
     else:
       self.animate_halt(self.direction)
@@ -105,6 +113,10 @@ class Player(AnimatedEntity):
 
     self.animate_walk(self.direction)
     self.move(point.x, point.y, dt)
+
+    if point.item:
+      if point.item.is_floor_item():
+        self.task_action(point.item)
 
     if self.x == point.x:
       if self.y == point.y:
@@ -119,7 +131,8 @@ class Player(AnimatedEntity):
       self.status = "change"
 
     item.animate_action(self.find_direction(item.tile))
-    inv_item = self.game.map.chests.remove(item)
+    inv_item = self.game.map.items.remove(item)
+    item.tile.remove_item(item)
     self.inventory.add_item(InventoryItem(item.image, item.type))
     self.tasks.remove_task()
     

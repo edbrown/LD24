@@ -89,9 +89,15 @@ class Game(pyglet.window.Window):
               print "No path!"
             break;
 
-      for chest in self.map.chests:
-        if chest.contains(x, y):
-          self.player.tasks.add_task(chest, TASK_ACTION)
+      for item in self.map.items:
+        if item.is_chest_item():
+          if item.contains(x, y):
+            self.player.tasks.add_task(item, TASK_ACTION)
+
+      for item in  self.player.inventory.items:
+        if item.contains(x, y):
+          item.action(self.player)
+          self.player.inventory.items.remove(item)
 
 
 if __name__ == "__main__":
