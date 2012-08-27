@@ -15,10 +15,10 @@ class VisibleEntity(pyglet.sprite.Sprite):
     self.y = (x * TILE_HEIGHT / 2) - (y * TILE_HEIGHT / 2) + OFFSET_Y
 
   def get_pixel(self, image, x, y):
-    if x > self.x and y > self.y and x < (self.x + TILE_WIDTH) and y < (self.y + TILE_HEIGHT):
+    if x > self.x and y > self.y and x < (self.x + image.width) and y < (self.y + image.height):
 
-      y_pos = y - self.y
-      x_pos = x - self.x
+      y_pos = int(y - self.y)
+      x_pos = int(x - self.x)
       
       pixel = image.get_region(x_pos, y_pos, 1, 1).get_image_data()
       data = pixel.get_data('A', 1)
