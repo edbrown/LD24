@@ -84,7 +84,7 @@ class ActionEntity(AnimatedEntity):
           self.status = "change"
 
         item.animate_action(self.find_direction(item.tile))
-        inv_item = self.game.map.items.remove(item)
+        inv_item = self.game.map.remove_item(item)
         if item.image.frames:
             self.inventory.add_item(InventoryItem(item.id, item.image.frames[0].image, item.type))
         else:
