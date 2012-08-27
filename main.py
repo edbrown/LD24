@@ -92,7 +92,6 @@ class Game(pyglet.window.Window):
     x_pos = x - self.offset_x
     y_pos = y - self.offset_y
 
-    print (x, y)
     
     if button == LEFT_CLICK:
       if self.message:
@@ -140,6 +139,14 @@ class Game(pyglet.window.Window):
         if item.contains(item.image, x_pos, y_pos):
           item.action(self.player)
           self.player.inventory.items.remove(item)
+
+      if self.enemy.contains(self.enemy.image.frames[0].image, x_pos, y_pos):
+        self.enemy.under_attack = True
+        self.player.tasks = TaskQueue()
+        self.player.tasks.add_task(self.enemy, TASK_GOTO)
+        print "Enemy click Task Attack"
+        self.player.tasks.add_task(self.enemy, TASK_ATTACK)
+
 
 
 if __name__ == "__main__":

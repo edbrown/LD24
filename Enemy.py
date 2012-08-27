@@ -16,7 +16,7 @@ class Enemy(ActionEntity):
     self.health = 50
     self.next_move = tile
     self.game = game
-    self.scale = 0.5
+    self.scale = 1
     self.speed = 0.5
     self.under_attack = False
     self.damage = 5
