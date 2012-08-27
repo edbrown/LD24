@@ -1,11 +1,11 @@
 import pyglet
-from AnimatedEntity import *
+from ActionEntity import *
 from definitions import *
 from AnimationBuilder import *
 from Message import *
 from TaskQueue import *
 
-class NPC(AnimatedEntity):
+class NPC(ActionEntity):
   
   def __init__(self, image, tile):
     super(NPC, self).__init__(image, tile.grid_x, tile.grid_y)

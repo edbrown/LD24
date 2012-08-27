@@ -1,5 +1,5 @@
 import pyglet
-from AnimatedEntity import *
+from ActionEntity import *
 from definitions import *
 from AnimationBuilder import *
 from TaskQueue import *
@@ -7,12 +7,11 @@ from Inventory import *
 from item import *
 from pyglet.gl import *
 
-class Player(AnimatedEntity):
+class Player(ActionEntity):
   
   
   def __init__(self, game, image, x = 0, y = 0):
     super(Player, self).__init__(image, x, y)
-    self.tasks = TaskQueue()
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
@@ -58,5 +57,5 @@ class Player(AnimatedEntity):
       AnimationBuilder.build(grid, 2, 4, 11)
     ]
 
-    self.animate_halt(NORTH)
+    self.animate_halt(self.direction)
 

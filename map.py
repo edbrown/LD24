@@ -22,15 +22,23 @@ class Map():
     self.items = []
     chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
     chest_grid = pyglet.image.TextureGrid(chest)
-    item = Item(chest_grid[0,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
+    item = Item(0, chest_grid[2,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
+    item.create_animations()
     self.items.append(item)
     self.tiles[3].add_item(item)
     
-    item = Item(chest_grid[0,0], self.tiles[4], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
+    item = Item(1, chest_grid[2,0], self.tiles[19], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
+    item.create_animations()
     self.items.append(item)
-    self.tiles[4].add_item(item)
+    self.tiles[19].add_item(item)
 
-    item = Item(chest_grid[1,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, SOUTH)
+    item = Item(2, chest_grid[0,0], self.tiles[25], ITEM_FOOD, ITEM_LOCATION_CHEST, SOUTH)
+    item.create_animations()
+    self.items.append(item)
+    self.tiles[25].add_item(item)
+
+    item = Item(3, chest_grid[0,0], self.tiles[12], ITEM_FOOD, ITEM_LOCATION_FLOOR, SOUTH)
+    item.create_animations()
     self.items.append(item)
     self.tiles[12].add_item(item)
     

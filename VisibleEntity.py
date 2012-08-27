@@ -14,26 +14,26 @@ class VisibleEntity(pyglet.sprite.Sprite):
     self.x = (y * TILE_WIDTH / 2) + (x * TILE_WIDTH / 2)
     self.y = (x * TILE_HEIGHT / 2) - (y * TILE_HEIGHT / 2) + OFFSET_Y
 
-  def get_pixel(self, x, y):
+  def get_pixel(self, image, x, y):
     if x > self.x and y > self.y and x < (self.x + TILE_WIDTH) and y < (self.y + TILE_HEIGHT):
 
       y_pos = y - self.y
       x_pos = x - self.x
       
-      pixel = self.image.get_region(x_pos, y_pos, 1, 1).get_image_data()
+      pixel = image.get_region(x_pos, y_pos, 1, 1).get_image_data()
       data = pixel.get_data('A', 1)
       components = map(ord, list(data))
       return [float(c) for c in components]
 
     return [0.0]
 
-  def contains(self, x, y):
+  def contains(self, image, x, y):
     
     passed = 0
     last_in_shape = None
     y_pos = y
-    while y_pos < (y + self.image.height):
-      alpha_data = self.get_pixel(x, y_pos)
+    while y_pos < (y + image.height):
+      alpha_data = self.get_pixel(image, x, y_pos)
       if alpha_data[0] == 0.0:
         if last_in_shape == True:
           passed += 1

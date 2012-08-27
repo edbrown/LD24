@@ -66,7 +66,7 @@ class Game(pyglet.window.Window):
       return
     if button == RIGHT_CLICK:
       for tile in self.map.tiles:
-        if(tile.contains(x, y) == True):
+        if(tile.contains(tile.image, x, y) == True):
           if tile.is_passable():
             move_loc = tile.get_move_loc()
             tasks = self.pathfinding.calcShortest(self.map.get_tile(self.player.grid_x, self.player.grid_y), self.map.get_tile(move_loc[0], move_loc[1]))
@@ -91,11 +91,15 @@ class Game(pyglet.window.Window):
 
       for item in self.map.items:
         if item.is_chest_item():
-          if item.contains(x, y):
-            self.player.tasks.add_task(item, TASK_ACTION)
+          if item.image.frames:
+            if item.contains(item.image.frames[0].image, x, y):
+              self.player.tasks.add_task(item, TASK_ACTION)
+          else:
+            if item.contains(item.image, x, y):
+              self.player.tasks.add_task(item, TASK_ACTION)
 
       for item in  self.player.inventory.items:
-        if item.contains(x, y):
+        if item.contains(item.image, x, y):
           item.action(self.player)
           self.player.inventory.items.remove(item)
 

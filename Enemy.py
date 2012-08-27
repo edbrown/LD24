@@ -1,12 +1,12 @@
 import pyglet
-from AnimatedEntity import *
+from ActionEntity import *
 from definitions import *
 from AnimationBuilder import *
 from Message import *
 from TaskQueue import *
 import random
 
-class Enemy(AnimatedEntity):
+class Enemy(ActionEntity):
   
   def __init__(self, game, image, tile):
     super(Enemy, self).__init__(image, tile.grid_x, tile.grid_y)
