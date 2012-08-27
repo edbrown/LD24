@@ -5,7 +5,7 @@ from Player import *
 from definitions import *
 from item import *
 
-class Map():
+class Room():
   def __init__(self, data):
     self.data = data;
     self.grid = pyglet.image.ImageGrid(pyglet.image.load("resources/tiles.png"), 16, 2, TILE_WIDTH, TILE_HEIGHT)
@@ -22,7 +22,7 @@ class Map():
     self.items = []
     chest = pyglet.image.ImageGrid(pyglet.image.load("resources/chest.png"), 4, 4, TILE_WIDTH, TILE_WIDTH)
     chest_grid = pyglet.image.TextureGrid(chest)
-    
+
     self.add_item(chest_grid[2,0], self.tiles[3], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
     self.add_item(chest_grid[2,0], self.tiles[19], ITEM_FOOD, ITEM_LOCATION_CHEST, NORTH)
     self.add_item(chest_grid[0,0], self.tiles[25], ITEM_FOOD, ITEM_LOCATION_CHEST, SOUTH)
@@ -33,8 +33,6 @@ class Map():
       tile.draw()
     for item in self.items:
       item.draw()
-
-  
 
   def add_item(self, image, tile, item_type, item_location, direction):
     item = Item(len(self.items), image, tile, item_type, item_location, direction)
