@@ -11,4 +11,7 @@ class RoomLoader:
 
     if f:
       for line in f:
-        pass
+        values = line.split(',')
+        for int(value) in values:
+          
+        
