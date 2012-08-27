@@ -11,13 +11,13 @@ class Player(ActionEntity):
   
   
   def __init__(self, game, image, x = 0, y = 0):
-    super(Player, self).__init__(image, x, y, follow = True)
+    super(Player, self).__init__(game, image, x, y, follow = True)
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5
     self.health = 100
     self.moving = False
-    self.game = game
+    self.damage = 5
 
     inventory_image = pyglet.image.load("resources/inventory.png")
     self.inventory = Inventory(inventory_image)

@@ -31,7 +31,7 @@ class Game(pyglet.window.Window):
     self.pause = False
     self.message = Message(["Well hello there, you sexy beast. This is long text...", "You bastard"]);
     self.player = Player(self, self.map.grid[2,1], 0, 0)
-    self.npc = NPC(self.map.grid[2,1], self.map.get_tile(7,5))
+    self.npc = NPC(self, self.map.grid[2,1], self.map.get_tile(7,5))
     self.player.create_animations()
     self.npc.create_animations()
     self.enemy = Enemy(self, self.map.grid[2,1], self.map.get_tile(1,5))
@@ -64,9 +64,11 @@ class Game(pyglet.window.Window):
     if self.pause:
       return  
     self.player.update(dt)
-    if not self.enemy.tasks.has_tasks(): 
-      self.enemy.calculate_next_move()
-      self.enemy.tasks.add_task(self.enemy.next_move, TASK_WALK)
+    if self.enemy.is_alive():
+      if not self.enemy.tasks.has_tasks(): 
+        self.enemy.calculate_next_move()
+        if self.enemy.next_move != self.enemy.tile:
+          self.enemy.tasks.add_task(self.enemy.next_move, TASK_WALK)
     self.enemy.update(dt)
 
   def update_viewport(self, x = -1, y = -1):
@@ -115,8 +117,11 @@ class Game(pyglet.window.Window):
                 if type(tasks[index].person) == NPC:
                   action = self.player.tasks.add_task(tasks[index].person, TASK_SPEAK)
                 if type(tasks[index].person) == Enemy:
-                  self.player.tasks.tasks.pop()
-                  action = self.player.tasks.add_task(tasks[index].person, TASK_ATTACK)
+                  tasks[index].person.under_attack = True
+                  self.player.tasks = TaskQueue()
+                  self.player.tasks.add_task(tasks[index].person, TASK_GOTO)
+                  print "Task Attack"
+                  self.player.tasks.add_task(tasks[index].person, TASK_ATTACK)
                   
             else:
               print "No path!"

@@ -47,11 +47,13 @@ class VisibleEntity(pyglet.sprite.Sprite):
     
     return (passed % 2) == 1
 
-  def find_direction(self, point):
+  def find_direction(self, point, origin=None):
+    if not origin:
+      origin = self
     point_x = point.grid_x
     point_y = point.grid_y
-    self_x = self.grid_x
-    self_y = self.grid_y
+    self_x = origin.grid_x
+    self_y = origin.grid_y
     direction = NORTH;
 
     if(point_x == self_x):
