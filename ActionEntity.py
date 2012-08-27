@@ -5,8 +5,9 @@ from item import *
 from pathfinding import *
 
 class ActionEntity(AnimatedEntity):
-    def __init__(self, game, image, x, y, passable = 1):
+    def __init__(self, game, image, x, y, passable = 1, follow = False):
         super(ActionEntity, self).__init__(image, x, y)
+        self.follow = follow
         self.tasks = TaskQueue()
         self.last_attack = 0
         self.health = 100
@@ -59,6 +60,9 @@ class ActionEntity(AnimatedEntity):
       if point.item:
         if point.item.is_floor_item():
           self.task_action(point.item)
+
+      if self.follow:
+        self.game.update_viewport()
 
       if self.x == point.x:
         if self.y == point.y:

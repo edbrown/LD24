@@ -11,7 +11,7 @@ class Player(ActionEntity):
   
   
   def __init__(self, game, image, x = 0, y = 0):
-    super(Player, self).__init__(game, image, x, y)
+    super(Player, self).__init__(game, image, x, y, follow = True)
     self.speed = 1
     self.direction = NORTH
     self.scale = 0.5

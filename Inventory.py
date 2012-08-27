@@ -8,6 +8,10 @@ class Inventory(pyglet.sprite.Sprite):
     
     def __init__(self, image):
         super(Inventory, self).__init__(image)
+        self.x = 0
+        self.y = 0
+        self.init_x = 0
+        self.init_y = 0
 
     def add_item(self, item):
         return self.items.append(item)
@@ -19,12 +23,15 @@ class Inventory(pyglet.sprite.Sprite):
         return items.count(item)
 
     def show(self):
-        self.image.blit(0, 0)
+        self.image.blit(self.x, self.y)
 
-    def update(self):
+    def update(self, offset_x, offset_y):
+        self.x = self.init_x - offset_x
+        self.y = self.init_y - offset_y
         self.show()
-        x = 14
-        y = 113
+        
+        x = 14 - offset_x
+        y = 113 - offset_y
         no = 0
         for item in self.items:
             item.show(x, y)
@@ -33,6 +40,6 @@ class Inventory(pyglet.sprite.Sprite):
             
             if (no % 6) == 0: 
                 y -= 20
-                x = 14
+                x = 14 - offset_x
 
             

@@ -15,6 +15,8 @@ class AnimatedEntity(VisibleEntity):
     self.tasks = TaskQueue()
     self.direction = NORTH
     self.speed = 1
+    self.last_x = self.x
+    self.last_y = self.y
 
   def animate_walk(self, direction):
     if self.animation_walk[direction]:
@@ -56,8 +58,12 @@ class AnimatedEntity(VisibleEntity):
 
   def is_alive(self):
     return self.health > 0
-
+  
   def move(self, x, y, dt):
+
+    self.last_x = x
+    self.last_y = y
+    
     if self.x < x:
       self.x += self.speed * 2
 
