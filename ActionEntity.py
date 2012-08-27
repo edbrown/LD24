@@ -4,9 +4,12 @@ from AnimatedEntity import *
 from item import *
 
 class ActionEntity(AnimatedEntity):
-    def __init__(self, image, x, y, passable = 1):
+    def __init__(self, image, x, y, passable = 1, follow = False):
         super(ActionEntity, self).__init__(image, x, y)
         self.tasks = TaskQueue()
+        self.follow = follow
+        print "Follow"
+        print self.follow
 
     def update(self, dt):
       if self.tasks.has_tasks():
@@ -37,6 +40,9 @@ class ActionEntity(AnimatedEntity):
       if point.item:
         if point.item.is_floor_item():
           self.task_action(point.item)
+
+      if self.follow:
+        self.game.update_viewport()
 
       if self.x == point.x:
         if self.y == point.y:
