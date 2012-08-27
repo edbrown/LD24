@@ -36,7 +36,7 @@ class AnimatedEntity(VisibleEntity):
       if self.image != self.animation_action[direction]:
         self.image = self.animation_action[direction]
 
-  def animate_die(self, direction):
+  def animate_death(self, direction):
     if self.animation_die[direction]:
       if self.image != self.animation_die[direction]:
         self.image = self.animation_die[direction]

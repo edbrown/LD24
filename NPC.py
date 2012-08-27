@@ -7,8 +7,8 @@ from TaskQueue import *
 
 class NPC(ActionEntity):
   
-  def __init__(self, image, tile):
-    super(NPC, self).__init__(image, tile.grid_x, tile.grid_y)
+  def __init__(self, game, image, tile):
+    super(NPC, self).__init__(game, image, tile.grid_x, tile.grid_y)
     self.tile = tile
     self.tile.add_person(self)
 
