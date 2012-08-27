@@ -34,6 +34,9 @@ class Room():
     for item in self.items:
       item.draw()
 
+  def add_tile(self, image, x, y, passable = 1):
+    self.tiles.append(Tile(image, x, y, passable)
+
   def add_item(self, image, tile, item_type, item_location, direction):
     item = Item(len(self.items), image, tile, item_type, item_location, direction)
     

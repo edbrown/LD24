@@ -36,9 +36,9 @@ class Game(pyglet.window.Window):
     self.npc.create_animations()
     self.enemy = Enemy(self, self.map.grid[2,1], self.map.get_tile(1,5))
     self.enemy.create_animations()
-    temp_size = self.get_size()
 
     #little hack to get the viewport centered and then to follow the player
+    temp_size = self.get_size()
     self.viewport_x = temp_size[0]/2
     self.viewport_y = 0
 
